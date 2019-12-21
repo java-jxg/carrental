@@ -38,5 +38,7 @@ public interface RoleService {
      */
     void deleteBatchRole(Integer[] ids);
 
+    public DataGridView initRoleMenuTreeJson(Integer roleid);
+
 }
 

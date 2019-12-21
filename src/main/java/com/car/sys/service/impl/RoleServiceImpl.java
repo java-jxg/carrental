@@ -1,20 +1,22 @@
 package com.car.sys.service.impl;
 
-import com.car.sys.domain.Role;
-import com.car.sys.domain.RoleExample;
-import com.car.sys.domain.RoleMenuExample;
-import com.car.sys.domain.RoleUserExample;
+import com.car.sys.constast.SysConstast;
+import com.car.sys.domain.*;
 import com.car.sys.mapper.RoleMapper;
 import com.car.sys.mapper.RoleMenuMapper;
 import com.car.sys.mapper.RoleUserMapper;
+import com.car.sys.service.MenuService;
 import com.car.sys.service.RoleService;
 import com.car.sys.utils.DataGridView;
+import com.car.sys.utils.TreeNode;
+import com.car.sys.vo.MenuVo;
 import com.car.sys.vo.RoleVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,6 +27,8 @@ public class RoleServiceImpl implements RoleService {
     private RoleMenuMapper roleMenuMapper;
     @Autowired
     private RoleUserMapper roleUserMapper;
+    @Autowired
+    private MenuService menuService;
 
     @Override
     public List<Role> queryAllRoleForList(RoleVo roleVo) {
@@ -89,5 +93,33 @@ public class RoleServiceImpl implements RoleService {
         for (Integer id:ids){
             deleteRole(id);
         }
+    }
+
+    @Override
+    public DataGridView initRoleMenuTreeJson(Integer roleid) {
+        //查询本权限所有列表
+        RoleMenuExample example = new RoleMenuExample();
+        example.createCriteria().andRidEqualTo(roleid);
+        List<RoleMenuKey> roleMenuKeys = roleMenuMapper.selectByExample(example);
+        //所有列表
+        MenuVo menuVo = new MenuVo();
+        menuVo.setAvailable(SysConstast.AVAILABLE_TRUE);
+        List<Menu> menus = menuService.queryAllMenuForList(menuVo);
+        List<TreeNode> nodes = new ArrayList<>();
+        for (Menu menu: menus) {
+            String  checkArr = SysConstast.CODE_ZERO+"";
+            for(RoleMenuKey r : roleMenuKeys){
+                if(r.getMid()==menu.getId()){
+                    checkArr = SysConstast.CODE_ONE+"";
+                }
+            }
+            Integer id = menu.getId();
+            Integer pid = menu.getPid();
+            String title = menu.getTitle();
+            Boolean spread = menu.getSpread()==SysConstast.SPREAD_TRUE?true:false;
+
+            nodes.add(new TreeNode(id,pid,title,spread,checkArr));
+        }
+        return new DataGridView(nodes);
     }
 }
