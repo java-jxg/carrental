@@ -133,7 +133,7 @@
     </div>
     <!-- 底部 -->
     <div class="layui-footer footer">
-        <p><span>copyright @2019 Luoyi</span></p>
+        <p><span>copyright @2019</span></p>
     </div>
 </div>
 

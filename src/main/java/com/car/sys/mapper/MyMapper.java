@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface MyMapper {
     User login(User user);
+    void deleteRoleMenu(Integer mid);
 }

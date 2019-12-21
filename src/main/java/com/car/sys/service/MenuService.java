@@ -28,4 +28,7 @@ public interface MenuService {
     void updateMenu(MenuVo menuVo);
 
     void deleteMenu(Integer id);
+
+    Integer checkMenuHasChildren(Integer id);
 }
+

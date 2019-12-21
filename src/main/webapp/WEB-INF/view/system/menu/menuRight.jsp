@@ -43,9 +43,6 @@
 <body class="childrenBody">
 
 <!-- 搜索条件开始 -->
-<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend>查询条件</legend>
-</fieldset>
 <form class="layui-form" method="post" id="searchFrm">
     <div class="layui-form-item">
         <div class="layui-inline">
@@ -176,7 +173,7 @@
             , url: '${car}/menu/loadAllMenu.action' //数据接口
             , title: '用户数据表'//数据导出来的标题
             , toolbar: "#menuToolBar"   //表格的工具条
-            , height: 'full-148'
+            , height: 'full-80'
             , cellMinWidth: 100 //设置列的最小默认宽度
             , page: true  //是否启用分页
             , cols: [[   //列表数据

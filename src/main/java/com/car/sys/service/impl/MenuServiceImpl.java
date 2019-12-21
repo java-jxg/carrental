@@ -1,10 +1,11 @@
-package com.car.sys.service.impl;
-
+package com.car.sys.service.impl.impl;
 
 import com.car.sys.domain.Menu;
 import com.car.sys.domain.MenuExample;
 import com.car.sys.domain.MenuExample.Criteria;
+import com.car.sys.domain.RoleMenuExample;
 import com.car.sys.mapper.MenuMapper;
+import com.car.sys.mapper.RoleMenuMapper;
 import com.car.sys.service.MenuService;
 import com.car.sys.utils.DataGridView;
 import com.car.sys.vo.MenuVo;
@@ -12,7 +13,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -20,6 +20,8 @@ import java.util.List;
 public class MenuServiceImpl implements MenuService {
     @Autowired
     private MenuMapper menuMapper;
+    @Autowired
+    private RoleMenuMapper roleMenuMapper;
 
     @Override
     public List<Menu> queryAllMenuForList(MenuVo menuVo) {
@@ -70,6 +72,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public void addMenu(MenuVo menuVo) {
+        if(menuVo.getId()!=null){
+            menuVo.setId(null);
+        }
         menuMapper.insert(menuVo);
     }
 
@@ -81,6 +86,19 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public void deleteMenu(Integer id) {
         menuMapper.deleteByPrimaryKey(id);
+        //同时删除role_menu表
+        RoleMenuExample example = new  RoleMenuExample();
+        example.createCriteria().andMidEqualTo(id);
+        roleMenuMapper.deleteByExample(example);
+    }
+
+    @Override
+    public Integer checkMenuHasChildren(Integer id) {
+        MenuExample example = new MenuExample ();
+        Criteria criteria = example.createCriteria();
+        criteria.andPidEqualTo(id);
+        List<Menu> menus = menuMapper.selectByExample(example);
+        return menus.size();
     }
 
 }

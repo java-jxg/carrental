@@ -4,12 +4,8 @@ import com.car.sys.constast.SysConstast;
 import com.car.sys.domain.Menu;
 import com.car.sys.domain.User;
 import com.car.sys.service.MenuService;
-import com.car.sys.utils.DataGridView;
-import com.car.sys.utils.TreeNode;
-import com.car.sys.utils.TreeNodeBuilder;
-import com.car.sys.utils.WebUtils;
+import com.car.sys.utils.*;
 import com.car.sys.vo.MenuVo;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,18 +71,38 @@ public class MenuController {
         return menuService.queryAllMenu(menuVo);
     }
     @RequestMapping("addMenu")
-    public void addMenu(MenuVo menuVo){
-        menuService.addMenu(menuVo);
+    public ResultObj addMenu(MenuVo menuVo){
+        try{
+            menuService.addMenu(menuVo);
+            return ResultObj.ADD_SUCCESS;
+        }catch (Exception e){
+            return ResultObj.ADD_ERROR;
+        }
     }
 
     @RequestMapping("updateMenu")
-    public void updateMenu(MenuVo menuVo){
-        menuService.updateMenu(menuVo);
+    public ResultObj updateMenu(MenuVo menuVo){
+        try{
+            menuService.updateMenu(menuVo);
+            return ResultObj.UPDATE_SUCCESS;
+        }catch (Exception e){
+            return ResultObj.UPDATE_ERROR;
+        }
     }
 
     @RequestMapping("deleteMenu")
-    public void deleteMenu(@RequestParam("id")Integer id){
-        menuService.deleteMenu(id);
+    public void deleteMenu(MenuVo menuVo){
+        menuService.deleteMenu(menuVo.getId());
+    }
+
+    @RequestMapping("checkMenuHasChildren")
+    public ResultObj checkMenuHasChildren (MenuVo menuVo){
+        Integer count = menuService.checkMenuHasChildren(menuVo.getId());
+        if(count>0){
+            return ResultObj.STATUS_TRUE;
+        }else{
+            return ResultObj.STATUS_FALSE;
+        }
     }
 
 }
