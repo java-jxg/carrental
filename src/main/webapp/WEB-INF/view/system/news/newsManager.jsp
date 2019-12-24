@@ -261,6 +261,7 @@
                     //建立编辑器
                     editIndex = layedit.build('content');
                     form.val("dataFrm", data);
+                    alert(data.content);
                     url = "${car}/news/updateNews.action";
                 }
             });

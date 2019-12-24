@@ -18,9 +18,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <%--<link rel="icon" href="favicon.ico">--%>
-    <link rel="stylesheet" href="${yeqifu}/static/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/css/public.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/layui_ext/dtree/font/dtreefont.css">
+    <link rel="stylesheet" href="${car}/static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/css/public.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/layui_ext/dtree/font/dtreefont.css">
 </head>
 <body class="childrenBody">
 
@@ -76,7 +76,7 @@
 </div>
 
 
-<script src="${yeqifu}/static/layui/layui.js"></script>
+<script src="${car}/static/layui/layui.js"></script>
 <script type="text/javascript">
     var tableIns;
     layui.use(['jquery', 'layer', 'form', 'table','laydate'], function () {
@@ -99,7 +99,7 @@
         //渲染数据表格
         tableIns = table.render({
             elem: '#logInfoTable'   //渲染的目标对象
-            , url: '${yeqifu}/logInfo/loadAllLogInfo.action' //数据接口
+            , url: '${car}/logInfo/loadAllLogInfo.action' //数据接口
             , title: '用户数据表'//数据导出来的标题
             , toolbar: "#logInfoToolBar"   //表格的工具条
             , height: 'full-190'
@@ -130,7 +130,7 @@
             var params = $("#searchFrm").serialize();
             //alert(params);
             tableIns.reload({
-                url: "${yeqifu}/logInfo/loadAllLogInfo.action?" + params,
+                url: "${car}/logInfo/loadAllLogInfo.action?" + params,
                 page:{curr:1}
             })
         });
@@ -151,7 +151,7 @@
             if (layEvent === 'del') { //删除
                 layer.confirm('真的删除【' + data.loginname + '】这个日志么？', function (index) {
                     //向服务端发送删除指令
-                    $.post("${yeqifu}/logInfo/deleteLogInfo.action", {id: data.id}, function (res) {
+                    $.post("${car}/logInfo/deleteLogInfo.action", {id: data.id}, function (res) {
                         layer.msg(res.msg);
                         //刷新数据表格
                         tableIns.reload();
@@ -175,7 +175,7 @@
             });
             layer.confirm('真的要删除这些日志么？', function (index) {
                 //向服务端发送删除指令
-                $.post("${yeqifu}/logInfo/deleteBatchLogInfo.action",params, function (res) {
+                $.post("${car}/logInfo/deleteBatchLogInfo.action",params, function (res) {
                     layer.msg(res.msg);
                     //刷新数据表格
                     tableIns.reload();
