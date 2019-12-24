@@ -122,4 +122,20 @@ public class RoleServiceImpl implements RoleService {
         }
         return new DataGridView(nodes);
     }
+
+    @Override
+    public void saveRoleMenu(RoleVo roleVo) {
+        RoleMenuExample roleMenuExample = new RoleMenuExample();
+        roleMenuExample.createCriteria().andRidEqualTo(roleVo.getRoleid());
+        roleMenuMapper.deleteByExample(roleMenuExample);
+
+        Integer[] ids = roleVo.getIds();
+        for(Integer id : ids){
+            RoleMenuKey rm = new RoleMenuKey();
+            rm.setRid(roleVo.getRoleid());
+            rm.setMid(id);
+            roleMenuMapper.insert(rm);
+        }
+
+    }
 }

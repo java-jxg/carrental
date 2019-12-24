@@ -40,5 +40,7 @@ public interface RoleService {
 
     public DataGridView initRoleMenuTreeJson(Integer roleid);
 
+    void saveRoleMenu(RoleVo roleVo);
+
 }
 

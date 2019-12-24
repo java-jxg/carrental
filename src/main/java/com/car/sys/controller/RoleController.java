@@ -1,21 +1,15 @@
 package com.car.sys.controller;
 
-import com.car.sys.constast.SysConstast;
-import com.car.sys.domain.Menu;
-import com.car.sys.domain.RoleMenuExample;
-import com.car.sys.domain.RoleMenuKey;
-import com.car.sys.mapper.RoleMenuMapper;
-import com.car.sys.service.MenuService;
+
 import com.car.sys.service.RoleService;
 import com.car.sys.utils.*;
-import com.car.sys.vo.MenuVo;
+
 import com.car.sys.vo.RoleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.car.sys.utils.ResultObj.DISPATCH_ERROR;
 
 /**
  * 角色管理控制器
@@ -75,6 +69,17 @@ public class RoleController {
     @RequestMapping("initRoleMenuTreeJson")
     public DataGridView initRoleMenuTreeJson(RoleVo roleVo){
         return roleService.initRoleMenuTreeJson(roleVo.getRoleid());
-
     }
+
+    @RequestMapping("saveRoleMenu")
+    public ResultObj saveRoleMenu(RoleVo roleVo) {
+        try {
+            roleService.saveRoleMenu(roleVo);
+            return ResultObj.DISPATCH_SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultObj.DISPATCH_ERROR;
+        }
+    }
+
 }

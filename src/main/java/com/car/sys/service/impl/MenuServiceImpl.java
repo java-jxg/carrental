@@ -1,11 +1,10 @@
-package com.car.sys.service.impl.impl;
+package com.car.sys.service.impl;
 
-import com.car.sys.domain.Menu;
-import com.car.sys.domain.MenuExample;
+import com.car.sys.domain.*;
 import com.car.sys.domain.MenuExample.Criteria;
-import com.car.sys.domain.RoleMenuExample;
 import com.car.sys.mapper.MenuMapper;
 import com.car.sys.mapper.RoleMenuMapper;
+import com.car.sys.mapper.RoleUserMapper;
 import com.car.sys.service.MenuService;
 import com.car.sys.utils.DataGridView;
 import com.car.sys.vo.MenuVo;
@@ -14,6 +13,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +22,8 @@ public class MenuServiceImpl implements MenuService {
     private MenuMapper menuMapper;
     @Autowired
     private RoleMenuMapper roleMenuMapper;
+    @Autowired
+    private RoleUserMapper roleUserMapper;
 
     @Override
     public List<Menu> queryAllMenuForList(MenuVo menuVo) {
@@ -36,7 +38,23 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> queryMenuByIdForList(MenuVo menuVo, Integer userId) {
+        RoleUserExample roleUserExample = new RoleUserExample();
+        roleUserExample.createCriteria().andUidEqualTo(userId);
+        List<RoleUserKey> roleUserKeys = roleUserMapper.selectByExample(roleUserExample);
+        List<Integer> rids = new ArrayList<Integer>();
+        for(RoleUserKey r : roleUserKeys){
+            rids.add(r.getRid());
+        }
+        RoleMenuExample roleMenuExample = new RoleMenuExample();
+        roleMenuExample.createCriteria().andRidIn(rids);
+        List<RoleMenuKey> roleMenuKeys = roleMenuMapper.selectByExample(roleMenuExample);
+        List<Integer> mids = new ArrayList<Integer>();
+        for(RoleMenuKey rm : roleMenuKeys){
+            mids.add(rm.getMid());
+        }
+
         MenuExample example = new MenuExample ();
+        example.createCriteria().andIdIn(mids);
         List<Menu> menus = menuMapper.selectByExample (example);
         return menus;
     }

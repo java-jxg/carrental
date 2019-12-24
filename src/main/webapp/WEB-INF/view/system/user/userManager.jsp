@@ -199,7 +199,7 @@
             , url: '${car}/user/loadAllUser.action' //数据接口
             , title: '用户数据表'//数据导出来的标题
             , toolbar: "#userToolBar"   //表格的工具条
-            , height: 'full-210'
+            , height: '600'
             , cellMinWidth: 100 //设置列的最小默认宽度
             , page: true  //是否启用分页
             , cols: [[   //列表数据
