@@ -18,10 +18,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <%--<link rel="icon" href="favicon.ico">--%>
-    <link rel="stylesheet" href="${yeqifu}/static/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/css/public.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/layui_ext/dtree/dtree.css">
-    <link rel="stylesheet" href="${yeqifu}/static/layui_ext/dtree/font/dtreefont.css">
+    <link rel="stylesheet" href="${car}/static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/css/public.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/layui_ext/dtree/dtree.css">
+    <link rel="stylesheet" href="${car}/static/layui_ext/dtree/font/dtreefont.css">
 </head>
 <body class="childrenBody">
 
@@ -168,7 +168,7 @@
     </form>
 </div>
 
-<script src="${yeqifu}/static/layui/layui.js"></script>
+<script src="${car}/static/layui/layui.js"></script>
 <script type="text/javascript">
     var tableIns;
     layui.use(['jquery', 'layer', 'form', 'table'], function () {
@@ -180,7 +180,7 @@
         //渲染数据表格
         tableIns = table.render({
             elem: '#customerTable'   //渲染的目标对象
-            , url: '${yeqifu}/customer/loadAllCustomer.action' //数据接口
+            , url: '${car}/customer/loadAllCustomer.action' //数据接口
             , title: '客户数据表'//数据导出来的标题
             , toolbar: "#customerToolBar"   //表格的工具条
             , height: 'full-210'
@@ -218,7 +218,7 @@
         $("#doSearch").click(function () {
             var params = $("#searchFrm").serialize();
             tableIns.reload({
-                url: "${yeqifu}/customer/loadAllCustomer.action?" + params,
+                url: "${car}/customer/loadAllCustomer.action?" + params,
                 page: {curr: 1}
             })
         });
@@ -226,7 +226,7 @@
         //导出
         $("#doExport").click(function () {
             var params = $("#searchFrm").serialize();
-            window.location.href="${yeqifu}/stat/exportCustomer.action?"+params;
+            window.location.href="${car}/stat/exportCustomer.action?"+params;
         });
 
         //监听头部工具栏事件
@@ -248,7 +248,7 @@
             if (layEvent === 'del') { //删除
                 layer.confirm('真的删除【' + data.custname + '】这个客户么？', function (index) {
                     //向服务端发送删除指令
-                    $.post("${yeqifu}/customer/deleteCustomer.action", {identity: data.identity}, function (res) {
+                    $.post("${car}/customer/deleteCustomer.action", {identity: data.identity}, function (res) {
                         layer.msg(res.msg);
                         //刷新数据表格
                         tableIns.reload();
@@ -273,7 +273,7 @@
                 success: function (index) {
                     //清空表单数据
                     $("#dataFrm")[0].reset();
-                    url = "${yeqifu}/customer/addCustomer.action";
+                    url = "${car}/customer/addCustomer.action";
                 }
             });
         }
@@ -287,7 +287,7 @@
                 area: ['700px', '320px'],
                 success: function (index) {
                     form.val("dataFrm", data);
-                    url = "${yeqifu}/customer/updateCustomer.action";
+                    url = "${car}/customer/updateCustomer.action";
                 }
             });
         }
@@ -321,7 +321,7 @@
             });
             layer.confirm('真的要删除这些客户么？', function (index) {
                 //向服务端发送删除指令
-                $.post("${yeqifu}/customer/deleteBatchCustomer.action", params, function (res) {
+                $.post("${car}/customer/deleteBatchCustomer.action", params, function (res) {
                     layer.msg(res.msg);
                     //刷新数据表格
                     tableIns.reload();

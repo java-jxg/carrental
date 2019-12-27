@@ -1,5 +1,6 @@
 package com.car.sys.service;
 
+import com.car.sys.domain.News;
 import com.car.sys.utils.DataGridView;
 import com.car.sys.vo.NewsVo;
 
@@ -18,4 +19,6 @@ public interface NewsService {
     void deleteNews(Integer id);
 
     void deleteBatchNews(Integer[] ids);
+
+    News queryNewsById(Integer id);
 }

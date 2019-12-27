@@ -20,7 +20,7 @@ public class AppFileUtils {
 	/**
 	 * 得到文件上传的路径
 	 */
-	public static String PATH="E:/upload/";
+	public static String PATH="E:/xuexi/upload/";
 	static {
 		InputStream stream = AppFileUtils.class.getClassLoader().getResourceAsStream("file.properties");
 		Properties properties=new Properties();

@@ -18,8 +18,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <%--<link rel="icon" href="favicon.ico">--%>
-    <link rel="stylesheet" href="${yeqifu}/static/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/css/public.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/css/public.css" media="all"/>
 </head>
 <body class="childrenBody">
 
@@ -168,7 +168,7 @@
 </div>
 
 
-<script src="${yeqifu}/static/layui/layui.js"></script>
+<script src="${car}/static/layui/layui.js"></script>
 <script type="text/javascript">
 
     layui.use(['jquery', 'layer', 'form', 'table', 'laydate'], function () {
@@ -182,7 +182,7 @@
         //根据出租单号查询
         $("#doSearch").click(function () {
             var rentid = $("#search_rentid").val();
-            $.post("${yeqifu}/check/checkRentExist.action", {rentid: rentid}, function (obj) {
+            $.post("${car}/check/checkRentExist.action", {rentid: rentid}, function (obj) {
                 if (obj === "") { //出租单号不存在，返回值为null
                     layer.msg("您输入的出租单号不存在，请更正后再查询");
                     //隐藏数据表格
@@ -202,7 +202,7 @@
 
         //加载表单数据和 卡片面板数据
         function initCheckFormData(rentid) {
-            $.post("${yeqifu}/check/initCheckFormData.action",{rentid:rentid},function (obj) {
+            $.post("${car}/check/initCheckFormData.action",{rentid:rentid},function (obj) {
                 //检查单
                 var check=obj.check;
                 form.val("checkFrm",check);
@@ -234,13 +234,13 @@
                 $("#car_rentprice").html("出租价格: "+car.rentprice);
                 $("#car_deposit").html("出租押金: "+car.deposit);
                 $("#car_description").html("车辆描述: "+car.description);
-                $("#car_carimg").attr("src","${yeqifu}/file/downloadShowFile.action?path="+car.carimg);
+                $("#car_carimg").attr("src","${car}/file/downloadShowFile.action?path="+car.carimg);
             })
         }
         //保存
         form.on("submit(doSubmit)",function () {
             var params = $("#checkFrm").serialize();
-            $.post("${yeqifu}/check/saveCheck.action",params,function (obj) {
+            $.post("${car}/check/saveCheck.action",params,function (obj) {
                 layer.msg(obj.msg);
                 $("#content").hide();
             })

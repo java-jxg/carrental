@@ -18,10 +18,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <%--<link rel="icon" href="favicon.ico">--%>
-    <link rel="stylesheet" href="${yeqifu}/static/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/css/public.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/layui_ext/dtree/dtree.css">
-    <link rel="stylesheet" href="${yeqifu}/static/layui_ext/dtree/font/dtreefont.css">
+    <link rel="stylesheet" href="${car}/static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/css/public.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/layui_ext/dtree/dtree.css">
+    <link rel="stylesheet" href="${car}/static/layui_ext/dtree/font/dtreefont.css">
 </head>
 <body class="childrenBody">
 
@@ -172,7 +172,7 @@
     </form>
 </div>
 
-<script src="${yeqifu}/static/layui/layui.js"></script>
+<script src="${car}/static/layui/layui.js"></script>
 <script type="text/javascript">
     var tableIns;
     layui.use(['jquery', 'layer', 'form', 'table', 'laydate'], function () {
@@ -205,7 +205,7 @@
         //渲染数据表格
         tableIns = table.render({
             elem: '#rentTable'   //渲染的目标对象
-            , url: '${yeqifu}/rent/loadAllRent.action' //数据接口
+            , url: '${car}/rent/loadAllRent.action' //数据接口
             , title: '出租单数据表'//数据导出来的标题
             , toolbar: "#rentToolBar"   //表格的工具条
             , height: 'full-210'
@@ -243,7 +243,7 @@
         $("#doSearch").click(function () {
             var params = $("#searchFrm").serialize();
             tableIns.reload({
-                url: "${yeqifu}/rent/loadAllRent.action?" + params,
+                url: "${car}/rent/loadAllRent.action?" + params,
                 page: {curr: 1}
             })
         });
@@ -255,7 +255,7 @@
             if (layEvent === 'del') { //删除
                 layer.confirm('真的删除【' + data.rentid + '】这个出租单么？', function (index) {
                     //向服务端发送删除指令
-                    $.post("${yeqifu}/rent/deleteRent.action", {rentid: data.rentid}, function (res) {
+                    $.post("${car}/rent/deleteRent.action", {rentid: data.rentid}, function (res) {
                         layer.msg(res.msg);
                         //刷新数据表格
                         tableIns.reload();
@@ -265,7 +265,7 @@
                 //编辑，打开修改界面
                 openUpdateRent(data);
             }else if(layEvent==='exportRent'){//导出出租单
-                window.location.href="${yeqifu}/stat/exportRent.action?rentid="+data.rentid;
+                window.location.href="${car}/stat/exportRent.action?rentid="+data.rentid;
             }
         });
 
@@ -281,7 +281,7 @@
                 area: ['750px', '420px'],
                 success: function (index) {
                     form.val("dataFrm", data);
-                    url = "${yeqifu}/rent/updateRent.action";
+                    url = "${car}/rent/updateRent.action";
                 }
             });
         }

@@ -12,10 +12,10 @@
 </head>
 <body style="height: 100%; margin: 0">
 <div id="container" style="height: 100%"></div>
-<script type="text/javascript" src="${yeqifu}/static/echarts/js/echarts.min.js"></script>
-<script type="text/javascript" src="${yeqifu}/static/echarts/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="${car}/static/echarts/js/echarts.min.js"></script>
+<script type="text/javascript" src="${car}/static/echarts/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
-    $.get("${yeqifu}/stat/loadCustomerAreaStatJson.action",function (data) {
+    $.get("${car}/stat/loadCustomerAreaStatJson.action",function (data) {
         var dom = document.getElementById("container");
         var myChart = echarts.init(dom);
         var app = {};

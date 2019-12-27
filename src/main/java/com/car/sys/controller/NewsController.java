@@ -1,5 +1,6 @@
 package com.car.sys.controller;
 
+import com.car.sys.domain.News;
 import com.car.sys.domain.User;
 import com.car.sys.service.NewsService;
 import com.car.sys.utils.DataGridView;
@@ -76,5 +77,14 @@ public class NewsController {
             e.printStackTrace();
             return ResultObj.DELETE_ERROR;
         }
+    }
+
+
+    /**
+     * 根据id查询公告
+     */
+    @RequestMapping("loadNewsById")
+    public News loadNewsById(Integer id) {
+        return newsService.queryNewsById(id);
     }
 }

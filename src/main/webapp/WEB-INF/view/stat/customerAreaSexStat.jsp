@@ -16,8 +16,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="${yeqifu}/static/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/css/public.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/css/public.css" media="all"/>
 </head>
 <body style="height: 100%; margin: 0">
 <!-- 搜索条件开始 -->
@@ -45,9 +45,9 @@
 </form>
 
 <div id="container" style="height: 80%;width: 90%;"></div>
-<script type="text/javascript" src="${yeqifu}/static/echarts/js/echarts.min.js"></script>
-<script type="text/javascript" src="${yeqifu}/static/echarts/js/jquery-3.1.1.min.js"></script>
-<script src="${yeqifu}/static/layui/layui.js"></script>
+<script type="text/javascript" src="${car}/static/echarts/js/echarts.min.js"></script>
+<script type="text/javascript" src="${car}/static/echarts/js/jquery-3.1.1.min.js"></script>
+<script src="${car}/static/layui/layui.js"></script>
 
 <script type="text/javascript">
 
@@ -63,7 +63,7 @@
         });
 
         function getData(area) {
-            $.get("${yeqifu}/stat/loadCustomerAreaSexStatJson.action",area,function (data) {
+            $.get("${car}/stat/loadCustomerAreaSexStatJson.action",area,function (data) {
                 for(var i=0;i<data.length;i++){
                     if(data[i].name == 0){
                         data[i].name = "女"

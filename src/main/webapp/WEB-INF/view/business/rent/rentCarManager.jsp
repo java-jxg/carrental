@@ -18,8 +18,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <%--<link rel="icon" href="favicon.ico">--%>
-    <link rel="stylesheet" href="${yeqifu}/static/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/css/public.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/css/public.css" media="all"/>
 </head>
 <body class="childrenBody">
 
@@ -130,7 +130,7 @@
     <img alt="出租图片" id="view_carimg">
 </div>
 
-<script src="${yeqifu}/static/layui/layui.js"></script>
+<script src="${car}/static/layui/layui.js"></script>
 <script type="text/javascript">
     var tableIns;
     layui.use(['jquery', 'layer', 'form', 'table', 'laydate'], function () {
@@ -154,7 +154,7 @@
             //渲染数据表格
             tableIns = table.render({
                 elem: '#carTable'   //渲染的目标对象
-                , url: '${yeqifu}/car/loadAllCar.action?isrenting=0' //数据接口
+                , url: '${car}/car/loadAllCar.action?isrenting=0' //数据接口
                 , title: '车辆列表'//数据导出来的标题
                 , height: 'full-150'
                 , page: true  //是否启用分页
@@ -173,7 +173,7 @@
                     , {field: 'description', title: '出租描述', align: 'center', width: '150'}
                     , {
                         field: 'carimg', title: '缩略图', align: 'center', width: '80', templet: function (d) {
-                            return "<img width=40 height=40 src=${yeqifu}/file/downloadShowFile.action?path=" + d.carimg + "/>";
+                            return "<img width=40 height=40 src=${car}/file/downloadShowFile.action?path=" + d.carimg + "/>";
                         }
                     }
                     , {field: 'createtime', title: '录入时间', align: 'center', width: '170'}
@@ -186,7 +186,7 @@
         //模糊查询
         $("#doSearch").click(function () {
             var params = $("#searchFrm").serialize();
-            $.post("${yeqifu}/rent/checkCustomerExist.action", params, function (obj) {
+            $.post("${car}/rent/checkCustomerExist.action", params, function (obj) {
                 if (obj.code >= 0) { //此客户存在，code的返回值为0
                     $("#content").show();
                     initCarData(); //初始化未出租汽车的所有数据
@@ -226,7 +226,7 @@
                     var price=data.rentprice;
                     var identity=$("#identity").val();
                     var carnumber=data.carnumber;
-                    $.get("${yeqifu}/rent/initRentFrom.action",{
+                    $.get("${car}/rent/initRentFrom.action",{
                         identity:identity,
                         price:price,
                         carnumber:carnumber
@@ -242,7 +242,7 @@
         form.on("submit(doSubmit)", function (obj) {
             //序列化表单数据
             var params = $("#dataFrm").serialize();
-            $.post("${yeqifu}/rent/saveRent.action", params, function (obj) {
+            $.post("${car}/rent/saveRent.action", params, function (obj) {
                 layer.msg(obj.msg);
                 //关闭弹出层
                 layer.close(mainIndex);
@@ -258,7 +258,7 @@
                 content: $("#viewCarImageDiv"),
                 area: ['1100px', '600px'],
                 success: function (index) {
-                    $("#view_carimg").attr("src", "${yeqifu}/file/downloadShowFile.action?path=" + data.carimg);
+                    $("#view_carimg").attr("src", "${car}/file/downloadShowFile.action?path=" + data.carimg);
                 }
             });
         }

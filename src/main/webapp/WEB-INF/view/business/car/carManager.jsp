@@ -18,8 +18,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <%--<link rel="icon" href="favicon.ico">--%>
-    <link rel="stylesheet" href="${yeqifu}/static/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/css/public.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/css/public.css" media="all"/>
 </head>
 <body class="childrenBody">
 
@@ -192,7 +192,7 @@
     <img alt="车辆图片" width="700px" height="450px" id="view_carimg">
 </div>
 
-<script src="${yeqifu}/static/layui/layui.js"></script>
+<script src="${car}/static/layui/layui.js"></script>
 <script type="text/javascript">
     var tableIns;
     layui.use(['jquery', 'layer', 'form', 'table', 'upload'], function () {
@@ -205,7 +205,7 @@
         //渲染数据表格
         tableIns = table.render({
             elem: '#carTable'   //渲染的目标对象
-            , url: '${yeqifu}/car/loadAllCar.action' //数据接口
+            , url: '${car}/car/loadAllCar.action' //数据接口
             , title: '车辆数据表'//数据导出来的标题
             , toolbar: "#carToolBar"   //表格的工具条
             , height: 'full-210'
@@ -227,7 +227,7 @@
                 , {field: 'description', title: '车辆描述', align: 'center', width: '150'}
                 , {
                     field: 'carimg', title: '缩略图', align: 'center', width: '80', templet: function (d) {
-                        return "<img width=40 height=40 src=${yeqifu}/file/downloadShowFile.action?path=" + d.carimg + "/>";
+                        return "<img width=40 height=40 src=${car}/file/downloadShowFile.action?path=" + d.carimg + "/>";
                     }
                 }
                 , {field: 'createtime', title: '录入时间', align: 'center', width: '165'}
@@ -250,7 +250,7 @@
             var params = $("#searchFrm").serialize();
 //            alert(params);
             tableIns.reload({
-                url: "${yeqifu}/car/loadAllCar.action?" + params,
+                url: "${car}/car/loadAllCar.action?" + params,
                 page: {curr: 1}
             })
         });
@@ -274,7 +274,7 @@
             if (layEvent === 'del') { //删除
                 layer.confirm('真的删除【' + data.carnumber + '】这个车辆么？', function (index) {
                     //向服务端发送删除指令
-                    $.post("${yeqifu}/car/deleteCar.action", {carnumber: data.carnumber}, function (res) {
+                    $.post("${car}/car/deleteCar.action", {carnumber: data.carnumber}, function (res) {
                         layer.msg(res.msg);
                         //刷新数据表格
                         tableIns.reload();
@@ -302,9 +302,9 @@
                     //清空表单数据
                     $("#dataFrm")[0].reset();
                     //设置默认图片
-                    $("#showCarImg").attr("src", "${yeqifu}/file/downloadShowFile.action?path=images/defaultcarimage.jpg");
+                    $("#showCarImg").attr("src", "${car}/file/downloadShowFile.action?path=images/defaultcarimage.jpg");
                     $("#carimg").val("images/defaultcarimage.jpg");
-                    url = "${yeqifu}/car/addCar.action";
+                    url = "${car}/car/addCar.action";
                     $("#carnumber").removeAttr("readonly","readonly");
                 }
             });
@@ -319,8 +319,8 @@
                 area: ['700px', '480px'],
                 success: function (index) {
                     form.val("dataFrm", data);
-                    $("#showCarImg").attr("src", "${yeqifu}/file/downloadShowFile.action?path=" + data.carimg);
-                    url = "${yeqifu}/car/updateCar.action";
+                    $("#showCarImg").attr("src", "${car}/file/downloadShowFile.action?path=" + data.carimg);
+                    url = "${car}/car/updateCar.action";
                     $("#carnumber").attr("readonly","readonly");
                 }
             });
@@ -354,7 +354,7 @@
             });
             layer.confirm('真的要删除这些车辆么？', function (index) {
                 //向服务端发送删除指令
-                $.post("${yeqifu}/car/deleteBatchCar.action", params, function (res) {
+                $.post("${car}/car/deleteBatchCar.action", params, function (res) {
                     layer.msg(res.msg);
                     //刷新数据表格
                     tableIns.reload();
@@ -365,12 +365,12 @@
         //上传缩略图
         upload.render({
             elem: '#carimgDiv',
-            url: '${yeqifu}/file/uploadFile.action',
+            url: '${car}/file/uploadFile.action',
             method: "post",  //此处是为了演示之用，实际使用中请将此删除，默认用post方式提交
             acceptMime: 'images/*',
             field: "mf",
             done: function (res, index, upload) {
-                $('#showCarImg').attr('src', "${yeqifu}/file/downloadShowFile.action?path=" + res.data.src);
+                $('#showCarImg').attr('src', "${car}/file/downloadShowFile.action?path=" + res.data.src);
                 $('#carimg').val(res.data.src);
                 $('#carimgDiv').css("background", "#fff");
             }
@@ -384,7 +384,7 @@
                 content: $("#viewCarImageDiv"),
                 area: ['750px', '500px'],
                 success: function (index) {
-                    $("#view_carimg").attr("src","${yeqifu}/file/downloadShowFile.action?path="+data.carimg);
+                    $("#view_carimg").attr("src","${car}/file/downloadShowFile.action?path="+data.carimg);
                 }
             });
         }

@@ -18,10 +18,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <%--<link rel="icon" href="favicon.ico">--%>
-    <link rel="stylesheet" href="${yeqifu}/static/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/css/public.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/layui_ext/dtree/dtree.css">
-    <link rel="stylesheet" href="${yeqifu}/static/layui_ext/dtree/font/dtreefont.css">
+    <link rel="stylesheet" href="${car}/static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/css/public.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/layui_ext/dtree/dtree.css">
+    <link rel="stylesheet" href="${car}/static/layui_ext/dtree/font/dtreefont.css">
 </head>
 <body class="childrenBody">
 <!-- 搜索条件开始 -->
@@ -170,7 +170,7 @@
     </form>
 </div>
 
-<script src="${yeqifu}/static/layui/layui.js"></script>
+<script src="${car}/static/layui/layui.js"></script>
 <script type="text/javascript">
     var tableIns;
     layui.use(['jquery', 'layer', 'form', 'table', 'laydate'], function () {
@@ -199,7 +199,7 @@
         //渲染数据表格
         tableIns = table.render({
             elem: '#checkTable'   //渲染的目标对象
-            , url: '${yeqifu}/check/loadAllCheck.action' //数据接口
+            , url: '${car}/check/loadAllCheck.action' //数据接口
             , title: '检查单数据表'//数据导出来的标题
             , toolbar: "#checkToolBar"   //表格的工具条
             , height: 'full-260'
@@ -223,7 +223,7 @@
         $("#doSearch").click(function () {
             var params = $("#searchFrm").serialize();
             tableIns.reload({
-                url: "${yeqifu}/check/loadAllCheck.action?" + params,
+                url: "${car}/check/loadAllCheck.action?" + params,
                 page: {curr: 1}
             })
         });
@@ -245,7 +245,7 @@
                 });
                 layer.confirm('真的要删除这些检查单吗？',function (index) {
                     //向服务端发送删除指令
-                    $.post("${yeqifu}/check/deleteBatchCheck.action",params,function (res) {
+                    $.post("${car}/check/deleteBatchCheck.action",params,function (res) {
                         layer.msg(res.msg);
                         tableIns.reload();
                     })
@@ -260,7 +260,7 @@
             if (layEvent === 'del') { //删除
                 layer.confirm('真的删除【' + data.checkid + '】这个检查单么？', function (index) {
                     //向服务端发送删除指令
-                    $.post("${yeqifu}/check/deleteCheck.action", {checkid: data.checkid}, function (res) {
+                    $.post("${car}/check/deleteCheck.action", {checkid: data.checkid}, function (res) {
                         layer.msg(res.msg);
                         //刷新数据表格
                         tableIns.reload();
@@ -284,7 +284,7 @@
                 area: ['750px', '420px'],
                 success: function (index) {
                     form.val("dataFrm", data);
-                    url = "${yeqifu}/check/updateCheck.action";
+                    url = "${car}/check/updateCheck.action";
                 }
             });
         }

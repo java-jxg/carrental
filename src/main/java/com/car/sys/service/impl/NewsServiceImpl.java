@@ -61,4 +61,12 @@ public class NewsServiceImpl implements NewsService {
             deleteNews(id);
         }
     }
+
+    @Override
+    public News queryNewsById(Integer id) {
+        NewsExample example = new NewsExample();
+        example.createCriteria().andIdEqualTo(id);
+        return newsMapper.selectByExample(example).get(0);
+
+    }
 }

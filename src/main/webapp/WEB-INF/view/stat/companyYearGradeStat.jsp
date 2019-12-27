@@ -16,8 +16,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="${yeqifu}/static/layui/css/layui.css" media="all"/>
-    <link rel="stylesheet" href="${yeqifu}/static/css/public.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="${car}/static/css/public.css" media="all"/>
 </head>
 
 
@@ -46,9 +46,9 @@
     </div>
 </form>
 <div id="container" style="height: 75%;width: 90%"></div>
-<script type="text/javascript" src="${yeqifu}/static/echarts/js/echarts.min.js"></script>
-<script type="text/javascript" src="${yeqifu}/static/echarts/js/jquery-3.1.1.min.js"></script>
-<script src="${yeqifu}/static/layui/layui.js"></script>
+<script type="text/javascript" src="${car}/static/echarts/js/echarts.min.js"></script>
+<script type="text/javascript" src="${car}/static/echarts/js/jquery-3.1.1.min.js"></script>
+<script src="${car}/static/layui/layui.js"></script>
 <script type="text/javascript">
 
     layui.use(['jquery', 'layer', 'form', 'table', 'laydate'], function () {
@@ -74,7 +74,7 @@
                 year=new Date().getFullYear();
             }
 
-            $.get("${yeqifu}/stat/loadCompanyYearGradeStatJson.action",{year:year},function (data) {
+            $.get("${car}/stat/loadCompanyYearGradeStatJson.action",{year:year},function (data) {
                 var dom = document.getElementById("container");
                 var myChart = echarts.init(dom);
                 var app = {};
