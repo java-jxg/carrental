@@ -4,6 +4,8 @@ import com.car.bus.domain.Customer;
 import com.car.bus.vo.CustomerVo;
 import com.car.sys.utils.DataGridView;
 
+import java.util.List;
+
 public interface CustomerService {
 
     DataGridView queryAllCustomer(CustomerVo customervo);
@@ -17,5 +19,7 @@ public interface CustomerService {
     void deleteBatchRole(String[] ids);
 
     Customer queryCustomerByIdentity(String identity);
+
+    List<Customer> queryAllCustomerForList(CustomerVo customerVo);
 
 }

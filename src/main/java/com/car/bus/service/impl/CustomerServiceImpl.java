@@ -76,4 +76,30 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer queryCustomerByIdentity(String identity) {
         return customerMapper.selectByPrimaryKey(identity);
     }
+
+    @Override
+    public List<Customer> queryAllCustomerForList(CustomerVo customervo) {
+        CustomerExample example = new CustomerExample();
+        CustomerExample.Criteria criteria = example.createCriteria();
+        if(customervo.getCustname()!=null){
+            criteria.andCustnameLike("%"+customervo.getCustname()+"%");
+        }
+        if(customervo.getIdentity()!=null){
+            criteria.andIdentityLike("%"+customervo.getIdentity()+"%");
+        }
+        if(customervo.getAddress()!=null){
+            criteria.andAddressLike("%"+customervo.getAddress()+"%");
+        }
+        if(customervo.getPhone()!=null){
+            criteria.andPhoneLike("%"+customervo.getPhone()+"%");
+        }
+        if(customervo.getCareer()!=null){
+            criteria.andCareerLike("%"+customervo.getCareer()+"%");
+        }
+        if(customervo.getSex()!=null){
+            criteria.andSexEqualTo(customervo.getSex());
+        }
+        List<Customer> customers = customerMapper.selectByExample(example);
+        return customers;
+    }
 }

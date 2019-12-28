@@ -33,7 +33,10 @@
 		<!-- 配置最上传文件的支持 20M -->
 		<property name="maxUploadSize" value="20971520"></property>
 	</bean>
-
+	<!-- 设置静态资源不过滤 -->
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/images/" mapping="/images/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
 
 	<!-- 配置静态文件放行 -->
 	<mvc:default-servlet-handler />
